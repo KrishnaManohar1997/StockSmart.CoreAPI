@@ -1,0 +1,23 @@
+repos:
+-   repo: https://github.com/asottile/seed-isort-config
+    rev: v2.2.0
+    hooks:
+    - id: seed-isort-config
+-   repo: https://github.com/ambv/black
+    rev: 20.8b1
+    hooks:
+    - id: black
+      exclude: ^migrations/
+      language_version: python3.8
+-   repo: https://gitlab.com/pycqa/flake8
+    rev: 3.7.3
+    hooks:
+    -   id: flake8
+        args: [--extend-ignore=F401]  # ignore imports unused in __init__.py
+        files: __init__.py
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.4.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
