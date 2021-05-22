@@ -13,14 +13,14 @@ class Stock(BaseModel):
     )
     last_traded_at_price = models.CharField(max_length=64, blank=False, null=False)
     category = models.CharField(
-        max_length=16,
+        max_length=24,
         choices=StockCategory.choices(),
         default=StockCategory.FINANCIAL.value,
     )
     type = models.CharField(
         max_length=16,
         choices=SecurityType.choices(),
-        default=StockCategory.EQUITY.value,
+        default=SecurityType.EQUITY.value,
     )
 
     class Meta:
