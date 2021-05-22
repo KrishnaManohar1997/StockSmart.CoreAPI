@@ -11,7 +11,7 @@ class Stock(BaseModel):
     symbol = models.CharField(
         max_length=16, blank=False, null=False, db_index=True, unique=True
     )
-    last_traded_at_price = models.CharField(max_length=64, blank=False, null=False)
+    last_traded_at_price = models.DecimalField(max_digits=5, decimal_places=2)
     category = models.CharField(
         max_length=24,
         choices=StockCategory.choices(),
