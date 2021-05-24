@@ -38,6 +38,13 @@ class BaseView(APIView):
             status=status.HTTP_202_ACCEPTED,
         )
 
+    def bad_request_response(self, message):
+        # Handles Error Objects Internally by Converting them To String
+        return Response(
+            {"result": False, "message": str(message)},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
     def serializer_error_response(self, message, serializer_errors):
         serializer_errors = " ".join(
             [
