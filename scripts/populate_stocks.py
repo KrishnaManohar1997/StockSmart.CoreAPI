@@ -2,8 +2,6 @@ import csv
 
 from stock.serializers import StockSerializer
 
-import time
-
 
 def serialize_stock_data(stock_list):
     try:
