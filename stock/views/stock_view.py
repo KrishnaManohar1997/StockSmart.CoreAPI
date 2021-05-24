@@ -5,7 +5,6 @@ from common.base_view import BaseView
 
 class StockView(BaseView):
     stock_service = StockService()
-
     # Filters the Stocks based on the Stock name or Symbol
     def get(self, request):
         stock_name = request.query_params.get("stock", None)
