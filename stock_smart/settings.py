@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "stock",
+    "user",
     "rest_framework",
 ]
 
@@ -71,7 +72,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "stock_smart.wsgi.application"
 
-
+AUTH_USER_MODEL = "user.User"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
