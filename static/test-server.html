@@ -1,0 +1,55 @@
+<html>
+    <head></head>
+    <body>
+        <button onclick=broadcast_messages()>Click Me</button>
+    </body>
+</html>
+<script>
+function broadcast_messages() {
+	var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+	let socket = new WebSocket(
+		ws_scheme + "://127.0.0.1:8000/ws/posts/"
+	);
+	let send_socket_data = {"a":true};
+	socket.onopen = function (e) {
+		socket.send(`{"data":${JSON.stringify(send_socket_data)}}`);
+	};
+
+	socket.onmessage = function (event) {
+		let response = JSON.parse(event.data);
+		if (response.result == false) {
+			console.log(`Broadcast Creation failed ${response.data.message}`);
+			return;
+		}
+		else if (response.data.notification_status == "CLOSE") {
+			console.log("<br/>You will be redirected to Broadcasts page.", `Broadcast Name -${response.data.broadcast_name} Created Successfully`);
+			setTimeout(() => {
+				window.location.replace(window.location.pathname.replace("/create", ""));
+			}, 4500);
+		}
+		else {
+			console.log(`Broadcast Creation failed`);
+			return;
+		}
+	};
+
+	socket.onclose = function (event) {
+		if (event.wasClean) {
+			// console.log(
+			// 	`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`
+			// );
+		} else {
+			// e.g. server process killed or network down
+			// event.code is usually 1006 in this case
+			// console.log(event.code);
+			// console.log("[close] Connection died");
+			return;
+		}
+	};
+
+	socket.onerror = function (error) {
+		console.log("Couldn't finish the Request for Broadcast. Please contact Admin " + error)
+		// console.log(`[error] ${error.message}`);
+	};
+}
+</script>

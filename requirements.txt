@@ -7,3 +7,5 @@ psycopg2
 
 # Tools
 configparser
+
+channels==3.0.3

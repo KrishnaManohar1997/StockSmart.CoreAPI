@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "stock",
     "user",
     "post",
+    "channels",
 ]
 
 MIDDLEWARE = [
@@ -76,6 +77,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "stock_smart.wsgi.application"
+ASGI_APPLICATION = "stock_smart.asgi.application"
 
 AUTH_USER_MODEL = "user.User"
 # Database
