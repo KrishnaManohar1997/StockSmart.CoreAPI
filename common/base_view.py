@@ -48,11 +48,11 @@ class BaseView(APIView):
     def serializer_error_response(self, message, serializer_errors):
         serializer_errors = " ".join(
             [
-                error_key + " : " + error_detail[0]
+                error_key + ":" + error_detail[0]
                 for error_key, error_detail in serializer_errors.items()
             ]
         )
-        return self.bad_request_response("{} {}".format(message, serializer_errors))
+        return self.bad_request_response("{}. {}".format(message, serializer_errors))
 
     def unauthorized_response(self, message="Unauthorized Access"):
         return Response(
