@@ -1,36 +1,34 @@
 <html>
     <head></head>
     <body>
+		<select name="Chat Threads" id="chat-room">
+			<option value="group">Group</option>
+			<option value="2">Aakash</option>
+			<option value="1">Manohar</option>
+		</select>
         <button onclick=broadcast_messages()>Click Me</button>
+		<input type="text" id="message-box"></input>
+        <button onclick=send_message()>Send Message</button>
     </body>
 </html>
 <script>
+let socket;
 function broadcast_messages() {
+	var chat_room_selection = document.getElementById("chat-room");
+	var chat_room = chat_room_selection.value;
+	console.log(chat_room);
 	var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
-	let socket = new WebSocket(
-		ws_scheme + "://127.0.0.1:8000/ws/posts/"
+	socket = new WebSocket(
+		ws_scheme + "://127.0.0.1:8000/ws/posts/?user_id="+chat_room
 	);
-	let send_socket_data = {"a":true};
+	let send_socket_data = {"room_name":chat_room,"type":"connect"};
 	socket.onopen = function (e) {
-		socket.send(`{"data":${JSON.stringify(send_socket_data)}}`);
+		socket.send(JSON.stringify(send_socket_data));
 	};
 
 	socket.onmessage = function (event) {
 		let response = JSON.parse(event.data);
-		if (response.result == false) {
-			console.log(`Broadcast Creation failed ${response.data.message}`);
-			return;
-		}
-		else if (response.data.notification_status == "CLOSE") {
-			console.log("<br/>You will be redirected to Broadcasts page.", `Broadcast Name -${response.data.broadcast_name} Created Successfully`);
-			setTimeout(() => {
-				window.location.replace(window.location.pathname.replace("/create", ""));
-			}, 4500);
-		}
-		else {
-			console.log(`Broadcast Creation failed`);
-			return;
-		}
+
 	};
 
 	socket.onclose = function (event) {
@@ -51,5 +49,11 @@ function broadcast_messages() {
 		console.log("Couldn't finish the Request for Broadcast. Please contact Admin " + error)
 		// console.log(`[error] ${error.message}`);
 	};
+}
+function send_message() {
+	var input_message= `${document.getElementById("message-box").value}`
+	console.log("New message sent : " +input_message)
+	socket.send(input_message)
+	document.getElementById("message-box").value = ""
 }
 </script>

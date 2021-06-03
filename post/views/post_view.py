@@ -1,11 +1,8 @@
-from common.helper.json_datetime_handler import datetime_handler
-from common.helper.uuid_encoder import UUIDEncoder
 from post.serializers import PostSerializer
 from common.base_view import BaseView
 from asgiref.sync import async_to_sync
 from rest_framework.permissions import IsAuthenticated
 import channels.layers
-import json
 from post.models import Post
 
 
