@@ -1,5 +1,6 @@
 # StockSmart.CoreAPI
-A Stock market analysis and signal posting app
+Backend Server implemented in Django connects to Postgres Database, Utilises Redis for Caching.
+Stock Smart, an emerging platform, leverages cutting-edge Artificial Intelligence to deliver institutional-grade investing and trading data, empowering retail investors with advanced algorithms for trend identification, social sentiment analysis, and informed financial decision-making.
 
 ## Spinning the Server
 ```python manage.py runserver```
