@@ -9,3 +9,6 @@ class AuthTokenService:
 
     def regenerate_token(self, user_id):
         return self.auth_token_repo.regenerate_token(user_id)
+
+    def get_user_by_token(self, token):
+        return self.auth_token_repo.get_user_by_token(token)
