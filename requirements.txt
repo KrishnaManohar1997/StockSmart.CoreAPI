@@ -1,9 +1,86 @@
-Django==3.2.3
+Django==3.2.12
 djangorestframework==3.12.4
-requests
 
-# ORM
-psycopg2
+# PostgreSQL Adapter
+psycopg2-binary
 
-# Tools
-configparser
+# Generic M2M field support
+django-gm2m
+
+# https://pypi.org/project/python-dotenv/
+# Loads Environment Variables
+python-dotenv==0.18.0
+
+# Twython for generating Client Oauth Token
+twython==3.9.1
+
+# Cors Headers
+django-cors-headers==3.7.0
+
+# Code Formatter
+pre-commit
+black
+
+# Social Auth
+social-auth-app-django==4.0.0
+drf-social-oauth2==1.0.8
+
+# JWT
+# https://pyjwt.readthedocs.io/en/stable/
+PyJWT==2.1.0
+
+# News API
+newsapi-python
+
+# XML To Dictionary
+xmltodict
+
+# Storage Backend
+django-storages==1.11.1
+boto3==1.18.51
+
+# Text Sanitizer
+bleach
+
+# Logging Handlers
+structlog==20.2.0
+django-structlog==2.1.0
+
+# Django Redis Caching Backend
+django-redis==5.0.0
+
+# Gunicorn Package
+gunicorn
+
+# https://django-postgres-extensions.readthedocs.io/
+# Extended Postgres functionality
+django-postgres-extensions
+# Required Dependency for Postgres extensions to work
+django-utils-six
+
+# Sentry Error Tracking
+sentry-sdk
+
+# Celery packages
+celery==5.2.2
+django-celery-beat==2.2.1
+
+wheel==0.37.0
+
+# Channels
+channels==3.0.4
+channels-redis==3.3.1
+
+# Json Validations
+pydantic==1.8.2
+
+# Sendgrid
+# https://github.com/sklarsa/django-sendgrid-v5
+django-sendgrid-v5==1.2.0
+
+# uvicorn standard ASGI server
+uvicorn[standard]
+
+twelvedata
+twelvedata[websocket]
+websocket-client

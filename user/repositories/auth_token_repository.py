@@ -16,3 +16,9 @@ class AuthTokenRepository:
     # Generates new Auth token for the User
     def regenerate_token(self, user_id):
         self.get_token_by_user_id(user_id=user_id).update(key=self.generate_token_key())
+
+    def get_user_by_token(self, token):
+        try:
+            return Token.objects.get(key=token)
+        except Token.DoesNotExist:
+            return None

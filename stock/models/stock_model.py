@@ -1,30 +1,46 @@
+import statistics
 from django.db import models
 
-from common.constants import SecurityType, StockCategory
-from common.models import BaseModel
+from common.models import BaseStockModel
+
+ALLOWED_RATIOS_FIELDS = [
+    "52wHigh",
+    "52wLow",
+    "3mAvgVol",
+    "12mVol",
+    "4wpct",
+    "52wpct",
+    "pe",
+    "pb",
+    "divYield",
+    "marketCap",
+    "marketCapLabel",
+    "beta",
+]
 
 
-class Stock(BaseModel):
-    name = models.CharField(
-        max_length=128, blank=False, null=False, db_index=True, unique=True
+def get_allowed_ratios_fields():
+    return ALLOWED_RATIOS_FIELDS
+
+
+def default_ratios_dict():
+    return dict.fromkeys(ALLOWED_RATIOS_FIELDS, None)
+
+
+class Stock(BaseStockModel):
+    industry = models.CharField(max_length=64, blank=True, null=True)
+    sector = models.CharField(max_length=64, blank=True, null=True)
+    ratios = models.JSONField(default=default_ratios_dict, blank=False, null=False)
+    ltp = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
+    prev_ltp = models.DecimalField(
+        max_digits=8, decimal_places=2, blank=True, null=True
     )
-    symbol = models.CharField(
-        max_length=16, blank=False, null=False, db_index=True, unique=True
-    )
-    last_traded_at_price = models.DecimalField(max_digits=5, decimal_places=2)
-    category = models.CharField(
-        max_length=24,
-        choices=StockCategory.choices(),
-        default=StockCategory.FINANCIAL.value,
-    )
-    type = models.CharField(
-        max_length=16,
-        choices=SecurityType.choices(),
-        default=SecurityType.EQUITY.value,
-    )
+    high = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
+    low = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
+    details = models.JSONField(default=None, blank=True, null=True)
+    statistics = models.JSONField(default=None, blank=True, null=True)
 
     class Meta:
-        db_table = "Stock"
-        managed = True
         verbose_name = "Stock"
         verbose_name_plural = "Stocks"
+        db_table = "Stock"
